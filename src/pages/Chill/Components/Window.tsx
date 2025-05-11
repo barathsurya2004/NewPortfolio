@@ -2,6 +2,7 @@ import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { useContext, useEffect, useRef, useState } from "react"
 import { Context } from "../../../context";
+import TestWindow from "./Windows/TestWindow";
 const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, MinimizeHandler }: {
     id: number, CloseHandler: (id: number) => void,
     ZIndex: number, SetZIndex: (id: number) => void,
@@ -59,8 +60,8 @@ const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, Minimize
             scale: 0
         },
             {
-                x: "50vh",
-                y: "25vh",
+                x: "20vh",
+                y: "15vh",
                 zIndex: ZIndex + 1,
                 scale: 1,
                 duration: 0.2,
@@ -74,7 +75,7 @@ const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, Minimize
     }, [])
     return (
         <div
-            className={`Window${id} absolute w-1/2 h-1/2 bg-gray-800 text-white flex items-center justify-center top-100vh left-0 `}
+            className={`Window${id} absolute min-w-1/4 min-h-1/4 bg-gray-800 text-white flex items-center justify-center top-100vh left-0 `}
             style={{
                 transform: `translate(${position.x}px, ${position.y}px)`,
             }}
@@ -91,6 +92,7 @@ const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, Minimize
                 className="MenuBar absolute top-0 left-0 w-full h-10 bg-gray-700 flex items-center justify-between px-2"
 
             >
+
                 <div className="WindowTitle flex-1 text-center"
                     onPointerDown={(e) => {
                         const rect = ref.current?.getBoundingClientRect();
@@ -112,8 +114,7 @@ const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, Minimize
                     <div
                         className="Grab-Padding absolute top-0 left-0 w-full h-full pt-15 -translate-y-2.5 bg-red-500 opacity-50 z-0"
                     />
-                    Window {id}
-                </div>
+                    Window {id}</div>
 
                 <button
                     className="CloseButton z-1"
@@ -139,7 +140,11 @@ const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, Minimize
                     X
                 </button>
             </div>
-            Window {id}
+            <div
+                className="WindowContent flex items-center justify-center w-full h-full"
+            >
+                <TestWindow />
+            </div>
         </div>
     );
 };

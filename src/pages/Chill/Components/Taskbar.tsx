@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import StartMenu from './StartMenu'
 
 const Taskbar = ({ apps, HandleIconClick }: {
     apps: {
@@ -10,23 +11,31 @@ const Taskbar = ({ apps, HandleIconClick }: {
     }[],
     HandleIconClick: (id: number) => void
 }) => {
+    const [startMenuOpen, setStartMenuOpen] = useState(false)
     return (
         <div
-            className='Taskbar holder w-full bg-gray-800 h-15 flex items-center'>
+            className='Taskbar holder w-full bg-gray-800 h-15 flex items-center z-10000'>
             <div
-                className='start flex items-center justify-start h-full bg-red-900 text-white px-4 flex-1'
+                className='start flex h-full flex-2 text-[25px] relative'
             >
-                {">>> "}
-                start
+                <div
+                    className='start-icon z-10 bg-blue-900 flex items-center justify-center h-full w-full cursor-pointer'
+                    onClick={() => {
+                        setStartMenuOpen(!startMenuOpen)
+                    }}
+                >
+                    🪟 Start
+                </div>
+                <StartMenu isOpen={startMenuOpen} />
             </div>
             <div
-                className='applications flex items-center justify-start h-full bg-gray-700 text-white px-4 flex-10'
+                className='applications flex items-center justify-start h-full bg-gray-700 text-white px-4 flex-12 z-10'
             >
                 {apps.map((app) => {
 
                     return app.visible ? <div
                         key={app.id}
-                        className={`app-icon flex items-center justify-center h-9/10 aspect-1/1 ml-1 mr-1 ${app.active ? 'bg-gray-600' : 'bg-blue-700'} text-white font-1`}
+                        className={`app-icon flex items-center justify-center h-9/10 aspect-1/1 ml-1 mr-1 ${app.active ? 'bg-gray-600' : 'bg-blue-700'} text-white text-[12px]`}
                         onClick={() => {
                             HandleIconClick(app.id)
                         }}

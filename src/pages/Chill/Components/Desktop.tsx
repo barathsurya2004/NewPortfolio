@@ -46,11 +46,7 @@ const Desktop = ({ apps, HandleIconClick, setActiveWindow }: {
                         </div>
                     ))}
                 </div>
-                <div
-                    className='IconColumn flex flex-col w-1/2 h-full bg-gray-700 text-white'
-                >
-                    column 2
-                </div>
+
             </div>
         </div >
     )
