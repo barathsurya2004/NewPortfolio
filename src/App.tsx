@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './App.css'
 import { Context } from './context';
 import { useNavigate } from 'react-router';
 
 function App() {
-  const { setUser, user } = useContext(Context)
+  const { setUser, user, setAuth } = useContext(Context)
   const navigate = useNavigate()
   const modes: string[] = ["dev", "chill"]
   const [modeNum, setModeNum] = useState<number>(0)

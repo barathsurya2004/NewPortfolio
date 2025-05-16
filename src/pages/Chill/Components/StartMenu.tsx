@@ -2,8 +2,10 @@ import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import type React from "react"
 import { useEffect, useRef } from "react"
+import { useNavigate } from "react-router"
 const StartMenu = ({ isOpen }: { isOpen: boolean }) => {
     const ref: React.RefObject<HTMLDivElement | null> = useRef(null)
+    const nav = useNavigate();
     useGSAP(() => {
         if (isOpen) {
             gsap.to(ref.current, {
@@ -29,8 +31,12 @@ const StartMenu = ({ isOpen }: { isOpen: boolean }) => {
             >
                 <h1 className="text-2xl font-bold mb-4">Start Menu</h1>
                 <div className="apps flex flex-col items-start">
-                    <div className="app-item mb-2 cursor-pointer hover:bg-gray-600 p-2 rounded">App 1</div>
-                    <div className="app-item mb-2 cursor-pointer hover:bg-gray-600 p-2 rounded">App 2</div>
+                    <div className="app-item mb-2 cursor-pointer hover:bg-gray-600 p-2 rounded"
+                        onClick={() => {
+                            nav('/shutdown')
+                        }}
+                    >Shutdown</div>
+                    <div className="app-item mb-2 cursor-pointer hover:bg-gray-600 p-2 rounded">Restart</div>
                     <div className="app-item mb-2 cursor-pointer hover:bg-gray-600 p-2 rounded">App 3</div>
                 </div>
             </div>

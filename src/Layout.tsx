@@ -4,6 +4,8 @@ import {
 } from 'react-router'
 import App from './App'
 import ChillLayout from './pages/Chill/ChillLayout'
+import ShutDown from './pages/Chill/Components/ShutDown'
+import FullScreen from './pages/Chill/Components/FullScreen'
 export const Layout = () => {
     return (
         <Routes>
@@ -11,6 +13,8 @@ export const Layout = () => {
             <Route path='/chill' element={
                 <ChillLayout />
             } />
+            <Route path='shutdown' element={<ShutDown mode='shutting down ...' />} />
+            <Route path='fullscreen' element={<FullScreen />} />
         </Routes>
     )
 }

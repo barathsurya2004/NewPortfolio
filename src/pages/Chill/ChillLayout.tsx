@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Taskbar from "./Components/Taskbar"
 import Window from "./Components/Window"
 import { useGSAP } from "@gsap/react"
 import Desktop from "./Components/Desktop"
 import gsap from "gsap"
-
+import { Context } from "../../context"
+import { useNavigate } from "react-router"
+import whatsapp from "../../assets/whatsapp.png"
 const ChillLayout = () => {
+
+
   const [windows, setWindows] = useState<{ id: number; visible: boolean, name: string, icon: string, active: boolean, minimized: boolean }[]>([
-    { id: 1, visible: false, name: "App 1", icon: "icon3.png", active: false, minimized: false },
-    { id: 2, visible: false, name: "App 2", icon: "icon3.png", active: false, minimized: false },
-    { id: 3, visible: false, name: "App 3", icon: "icon3.png", active: false, minimized: false },
-    { id: 4, visible: false, name: "App 4", icon: "icon3.png", active: false, minimized: false },
-    { id: 5, visible: false, name: "App 5", icon: "icon3.png", active: false, minimized: false },
+    { id: 1, visible: false, name: "App 1", icon: whatsapp, active: false, minimized: false },
+    { id: 2, visible: false, name: "App 2", icon: "https://picsum.photos/200/300", active: false, minimized: false },
+    { id: 3, visible: false, name: "App 3", icon: "https://picsum.photos/200/300", active: false, minimized: false },
+    { id: 4, visible: false, name: "App 4", icon: "https://picsum.photos/200/300", active: false, minimized: false },
+    { id: 5, visible: false, name: "App 5", icon: "https://picsum.photos/200/300", active: false, minimized: false },
   ])
   const setActiveWindow = (id: number) => {
     const temp = [...windows]
@@ -65,7 +69,7 @@ const ChillLayout = () => {
     >
       {
         windows.map((window, index) => (
-          <div>
+          <div key={index}>
             {window.visible && (
               <Window
                 key={index}

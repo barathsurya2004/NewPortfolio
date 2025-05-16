@@ -8,10 +8,20 @@ const Taskbar = ({ apps, HandleIconClick }: {
         icon: string
         active: boolean
         visible: boolean
+
     }[],
     HandleIconClick: (id: number) => void
 }) => {
     const [startMenuOpen, setStartMenuOpen] = useState(false)
+    const [time, setTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
+    const [date, setDate] = useState(new Date().toLocaleDateString())
+
+    const updateTime = () => {
+        setTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
+        setDate(new Date().toLocaleDateString())
+    }
+    setInterval(updateTime, 1000)
+
     return (
         <div
             className='Taskbar holder w-full bg-gray-800 h-15 flex items-center z-10000'>
@@ -35,20 +45,42 @@ const Taskbar = ({ apps, HandleIconClick }: {
 
                     return app.visible ? <div
                         key={app.id}
-                        className={`app-icon flex items-center justify-center h-9/10 aspect-1/1 ml-1 mr-1 ${app.active ? 'bg-gray-600' : 'bg-blue-700'} text-white text-[12px]`}
+                        className={`app-icon flex items-center justify-center h-9/10 aspect-1/1 ml-1 mr-1 ${app.active ? 'opacity-100' : 'opacity-80'} text-white text-[12px] relative`}
                         onClick={() => {
                             HandleIconClick(app.id)
                         }}
                     >
 
-                        <span className='ml-2 '>{app.name}</span>
+                        <img src={app.icon} alt=""
+                            className='absolute h-fulla aspect-1 object-cover'
+                        />
                     </div> : null
                 }
                 )}
             </div>
             <div
-                className='settings flex items-center justify-start h-full bg-red-700 text-white px-4 flex-2'
-            >Time and date</div>
+                className='Time-and-date flex items-center  h-full bg-red-700 text-white px-4 flex-2'
+            >
+                <div
+                    className='settings flex items-center justify-center h-full cursor-pointer'
+                >
+                    ⚙️
+                </div>
+                <div
+                    className='time-and-date flex flex-col items-center justify-center h-full w-full'
+                >
+                    <span
+                        className='time text-[15px] mr-2 block'
+                    >
+                        {time}
+                    </span>
+                    <span
+                        className='date text-[15px] block'
+                    >
+                        {date}
+                    </span>
+                </div>
+            </div>
         </div>
     )
 }

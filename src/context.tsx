@@ -5,6 +5,8 @@ export const Context = createContext<{
     user: string | null;
     activeWindow: number | null;
     setActiveWindow: (window: number | null) => void;
+    Auth: boolean | null;
+    setAuth: (auth: boolean | null) => void;
     mousePos: { x: number; y: number };
 }>({
     setUser: () => { },
@@ -12,13 +14,15 @@ export const Context = createContext<{
     activeWindow: null,
     setActiveWindow: () => { },
     mousePos: { x: 0, y: 0 },
+    Auth: null,
+    setAuth: () => { }
 });
 
 export const ContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<string | null>(null);
     const [activeWindow, setActiveWindow] = useState<number | null>(null);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
+    const [Auth, setAuth] = useState<boolean | null>(false);
 
 
     useEffect(() => {
@@ -32,7 +36,7 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     })
 
     return (
-        <Context.Provider value={{ user, setUser, activeWindow, setActiveWindow, mousePos }}>
+        <Context.Provider value={{ user, setUser, activeWindow, setActiveWindow, mousePos, Auth, setAuth }}>
             {children}
         </Context.Provider>
     );

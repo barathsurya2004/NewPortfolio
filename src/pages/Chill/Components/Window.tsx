@@ -112,7 +112,7 @@ const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, Minimize
 
                 >
                     <div
-                        className="Grab-Padding absolute top-0 left-0 w-full h-full pt-15 -translate-y-2.5 bg-red-500 opacity-50 z-0"
+                        className="Grab-Padding absolute top-0 left-0 w-full h-full pt-15 -translate-y-2.5 bg-red-500 opacity-0 z-0"
                     />
                     Window {id}</div>
 
