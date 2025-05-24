@@ -1,7 +1,7 @@
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import type React from "react"
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import { useNavigate } from "react-router"
 const StartMenu = ({ isOpen }: { isOpen: boolean }) => {
     const ref: React.RefObject<HTMLDivElement | null> = useRef(null)

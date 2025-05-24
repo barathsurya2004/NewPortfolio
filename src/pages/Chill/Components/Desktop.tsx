@@ -1,5 +1,4 @@
 import gsap from "gsap"
-import whatsapp from "../../../assets/whatsapp.png"
 import desktop from "../../../assets/desktop.png"
 const Desktop = ({ apps, HandleIconClick, setActiveWindow }: {
     apps: {
