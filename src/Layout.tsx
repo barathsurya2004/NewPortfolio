@@ -13,7 +13,8 @@ export const Layout = () => {
             <Route path='/chill' element={
                 <ChillLayout />
             } />
-            <Route path='shutdown' element={<ShutDown mode='shutting down ...' />} />
+            <Route path='shutdown' element={<ShutDown mode='shutdown' />} />
+            <Route path='restart' element={<ShutDown mode='restart' />} />
             <Route path='fullscreen' element={<FullScreen />} />
         </Routes>
     )

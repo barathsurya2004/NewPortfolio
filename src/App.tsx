@@ -8,6 +8,17 @@ function App() {
   const navigate = useNavigate()
   const modes: string[] = ["dev", "chill"]
   const [modeNum, setModeNum] = useState<number>(0)
+  const handleFullScreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch((err) => {
+        console.error(`Error attempting to exit full-screen mode: ${err.message}`);
+      });
+    } else {
+      document.documentElement.requestFullscreen().catch((err) => {
+        console.error(`Error attempting to enter full-screen mode: ${err.message}`);
+      });
+    }
+  }
   return (
     <div>
       <div
@@ -37,6 +48,8 @@ function App() {
       >
         <button
           onClick={() => {
+            handleFullScreen();
+
             setUser(modes[modeNum])
             if (modes[modeNum] === "dev") {
               navigate("/dev")

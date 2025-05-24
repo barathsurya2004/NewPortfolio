@@ -1,6 +1,6 @@
 import gsap from "gsap"
 import whatsapp from "../../../assets/whatsapp.png"
-import desktop from "../../../assets/desktop.jpg"
+import desktop from "../../../assets/desktop.png"
 const Desktop = ({ apps, HandleIconClick, setActiveWindow }: {
     apps: {
         id: number
@@ -52,7 +52,10 @@ const Desktop = ({ apps, HandleIconClick, setActiveWindow }: {
                                 }}
                             >
                                 <img src={app.icon} alt=""
-                                    className='absolute w-full h-full object-cover rounded-lg'
+                                    className='absolute w-full h-full object-cover rounded-lg z-1 opacity-50'
+                                />
+                                <img src={app.icon} alt=""
+                                    className='absolute w-full h-full object-cover rounded-lg blur-[2px] z-0'
                                 />
                             </div>
                             <div

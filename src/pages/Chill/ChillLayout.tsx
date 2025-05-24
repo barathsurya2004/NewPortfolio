@@ -6,16 +6,24 @@ import Desktop from "./Components/Desktop"
 import gsap from "gsap"
 import { Context } from "../../context"
 import { useNavigate } from "react-router"
-import whatsapp from "../../assets/whatsapp.png"
+import whatsapp from "../../assets/whatapp.png"
+import adobe from "../../assets/Adobe.png"
+import chrome from "../../assets/chrome.png"
+import kindle from "../../assets/Kindle.png"
+import recycleBin from "../../assets/recyclebin.png"
+import Resume from "./Components/Windows/Resume"
+import TestWindow from "./Components/Windows/TestWindow"
+import Chrome from "./Components/Windows/Chrome"
 const ChillLayout = () => {
 
 
-  const [windows, setWindows] = useState<{ id: number; visible: boolean, name: string, icon: string, active: boolean, minimized: boolean }[]>([
-    { id: 1, visible: false, name: "App 1", icon: whatsapp, active: false, minimized: false },
-    { id: 2, visible: false, name: "App 2", icon: "https://picsum.photos/200/300", active: false, minimized: false },
-    { id: 3, visible: false, name: "App 3", icon: "https://picsum.photos/200/300", active: false, minimized: false },
-    { id: 4, visible: false, name: "App 4", icon: "https://picsum.photos/200/300", active: false, minimized: false },
-    { id: 5, visible: false, name: "App 5", icon: "https://picsum.photos/200/300", active: false, minimized: false },
+
+  const [windows, setWindows] = useState<{ id: number; visible: boolean, name: string, icon: string, active: boolean, minimized: boolean, Content: React.ReactNode }[]>([
+    { id: 1, visible: false, name: "App 1", icon: whatsapp, active: false, minimized: false, Content: <Resume /> },
+    { id: 2, visible: false, name: "App 2", icon: chrome, active: false, minimized: false, Content: <Chrome /> },
+    { id: 3, visible: false, name: "App 3", icon: adobe, active: false, minimized: false, Content: <TestWindow /> },
+    { id: 4, visible: false, name: "App 4", icon: kindle, active: false, minimized: false, Content: <TestWindow /> },
+    { id: 5, visible: false, name: "App 5", icon: recycleBin, active: false, minimized: false, Content: <TestWindow /> },
   ])
   const setActiveWindow = (id: number) => {
     const temp = [...windows]
@@ -28,10 +36,7 @@ const ChillLayout = () => {
     })
     setWindows(temp)
   }
-  const MinimizeHandler = (id: number) => {
-    console.log("Handling minimize")
 
-  }
   const CloseButtonHandler = (id: number) => {
     const temp = [...windows]
     temp.forEach((window) => {
@@ -73,12 +78,11 @@ const ChillLayout = () => {
             {window.visible && (
               <Window
                 key={index}
-                id={window.id}
+                app={window}
                 CloseHandler={CloseButtonHandler}
                 ZIndex={topZIndex}
                 SetZIndex={setTopZIndex}
                 setActiveWindow={setActiveWindow}
-                MinimizeHandler={MinimizeHandler}
               />
             )}
           </div>

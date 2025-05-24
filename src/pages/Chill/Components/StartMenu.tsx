@@ -36,7 +36,11 @@ const StartMenu = ({ isOpen }: { isOpen: boolean }) => {
                             nav('/shutdown')
                         }}
                     >Shutdown</div>
-                    <div className="app-item mb-2 cursor-pointer hover:bg-gray-600 p-2 rounded">Restart</div>
+                    <div className="app-item mb-2 cursor-pointer hover:bg-gray-600 p-2 rounded"
+                        onClick={() => {
+                            nav('/restart')
+                        }}
+                    >Restart</div>
                     <div className="app-item mb-2 cursor-pointer hover:bg-gray-600 p-2 rounded">App 3</div>
                 </div>
             </div>

@@ -2,12 +2,21 @@ import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { useContext, useEffect, useRef, useState } from "react"
 import { Context } from "../../../context";
-import TestWindow from "./Windows/TestWindow";
-const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, MinimizeHandler }: {
-    id: number, CloseHandler: (id: number) => void,
-    ZIndex: number, SetZIndex: (id: number) => void,
-    setActiveWindow: (id: number) => void,
-    MinimizeHandler: (id: number, ref: React.RefObject<HTMLDivElement> | null) => void
+
+const Window = ({ app, CloseHandler, ZIndex, SetZIndex, setActiveWindow }: {
+    app: {
+        id: number
+        visible: boolean
+        name: string
+        icon: string
+        active: boolean
+        minimized: boolean
+        Content: React.ReactNode
+    },
+    CloseHandler: (id: number) => void,
+    ZIndex: number,
+    SetZIndex: (id: number) => void,
+    setActiveWindow: (id: number) => void
 }) => {
     const [clicked, setClicked] = useState(false);
     const { mousePos } = useContext(Context);
@@ -16,7 +25,7 @@ const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, Minimize
     const ref = useRef<HTMLDivElement>(null);
     useEffect(() => {
         if (clicked) {
-            setActiveWindow(id);
+            setActiveWindow(app.id);
             SetZIndex(ZIndex + 1);
             gsap.set(ref.current, {
                 zIndex: ZIndex,
@@ -75,12 +84,12 @@ const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, Minimize
     }, [])
     return (
         <div
-            className={`Window${id} absolute min-w-1/4 min-h-1/4 bg-gray-800 text-white flex items-center justify-center top-100vh left-0 `}
+            className={`Window${app.id} absolute min-w-1/4 min-h-1/4 bg-gray-800 text-white flex items-center justify-center top-100vh left-0 `}
             style={{
                 transform: `translate(${position.x}px, ${position.y}px)`,
             }}
             onClick={() => {
-                setActiveWindow(id);
+                setActiveWindow(app.id);
                 SetZIndex(ZIndex + 1);
                 gsap.set(ref.current, {
                     zIndex: ZIndex,
@@ -114,7 +123,7 @@ const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, Minimize
                     <div
                         className="Grab-Padding absolute top-0 left-0 w-full h-full pt-15 -translate-y-2.5 bg-red-500 opacity-0 z-0"
                     />
-                    Window {id}</div>
+                    Window {app.id}</div>
 
                 <button
                     className="CloseButton z-1"
@@ -131,7 +140,7 @@ const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, Minimize
                                 duration: 0.3,
                                 ease: "power1.out",
                                 onComplete: () => {
-                                    CloseHandler(id);
+                                    CloseHandler(app.id);
                                 }
                             }, "<")
                         setActiveWindow(-1);
@@ -141,9 +150,9 @@ const Window = ({ id, CloseHandler, ZIndex, SetZIndex, setActiveWindow, Minimize
                 </button>
             </div>
             <div
-                className="WindowContent flex items-center justify-center w-full h-full"
+                className="WindowContent flex items-center justify-center w-full h-full pt-10 "
             >
-                <TestWindow />
+                {app.Content}
             </div>
         </div>
     );
