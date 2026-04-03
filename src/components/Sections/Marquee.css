@@ -1,0 +1,24 @@
+.marquee {
+  position: relative;
+  z-index: 10;
+  margin: 0 1.5rem;
+  padding: 1.1rem 0;
+  overflow: hidden;
+  border-radius: 100px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+.m-track {
+  display: flex; gap: 0; width: max-content;
+}
+.m-item {
+  display: flex; align-items: center; gap: 2.5rem;
+  padding: 0 2.5rem; white-space: nowrap;
+  font-size: .75rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted);
+}
+.m-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--rose); flex-shrink: 0; }
+

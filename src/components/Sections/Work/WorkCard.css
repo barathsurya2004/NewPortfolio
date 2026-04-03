@@ -1,0 +1,58 @@
+.wcard {
+  border-radius: 22px; overflow: hidden;
+  text-decoration: none; color: var(--text);
+  background: var(--card);
+  transform-style: preserve-3d;
+}
+.wcard:hover { box-shadow: 0 24px 60px rgba(40,37,31,.12); }
+
+.wcard-img {
+  position: relative; overflow: hidden;
+  height: 290px;
+}
+.wgrid .wcard:first-child .wcard-img { height: 360px; }
+.wcard-img-fill {
+  position: absolute; inset: 0;
+  transition: transform .65s cubic-bezier(.16,1,.3,1);
+}
+.wcard:hover .wcard-img-fill { transform: scale(1.05); }
+.wcard-img::before {
+  content: ''; position: absolute;
+  width: 130px; height: 130px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.3);
+  top: 24px; right: 24px; z-index: 1;
+}
+.wcard-img::after {
+  content: ''; position: absolute;
+  width: 55px; height: 55px; border-radius: 50%;
+  background: rgba(255,255,255,.18);
+  bottom: 20px; left: 20px; z-index: 1;
+}
+
+.c-sage  { background: linear-gradient(135deg,#C8DCC2 0%,#8DAD85 100%); }
+.c-rose  { background: linear-gradient(135deg,#EDD4CC 0%,#C4A098 100%); }
+.c-warm  { background: linear-gradient(135deg,#E8DCCB 0%,#C8B49A 100%); }
+.c-sky   { background: linear-gradient(135deg,#C8D9EC 0%,#8AABCC 100%); }
+
+.wcard-body {
+  padding: 1.4rem 1.6rem 1.8rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.wcard-type { font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin-bottom: .35rem; }
+.wcard-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.42rem; font-weight: 400; line-height: 1.2;
+}
+.wcard-meta { display: flex; align-items: center; gap: .9rem; flex-shrink: 0; }
+.wcard-yr { font-size: .72rem; color: var(--muted); }
+.wcard-arr {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid rgba(40,37,31,.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .88rem; transition: all .3s;
+}
+.wcard:hover .wcard-arr { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+@media (max-width: 900px) {
+  .wgrid .wcard:first-child .wcard-img { height: 260px; }
+}

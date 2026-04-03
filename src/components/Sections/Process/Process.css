@@ -1,0 +1,20 @@
+.process-wrap {
+  background: var(--card); border-radius: 30px;
+  margin: 0 1.5rem; padding: 5rem 4rem;
+}
+.pgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 3rem; margin-top: 4rem; }
+.pstep-n {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4.5rem; font-weight: 300; color: var(--warm);
+  line-height: 1; margin-bottom: 1.4rem;
+}
+.pstep-h {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem; font-weight: 400; margin-bottom: .75rem;
+}
+.pstep-d { font-size: .9rem; line-height: 1.75; color: var(--muted); }
+
+@media (max-width: 900px) {
+  .pgrid { grid-template-columns: 1fr; }
+  .process-wrap { margin: 0; border-radius: 20px; padding: 3rem 2rem; }
+}

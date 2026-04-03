@@ -1,0 +1,29 @@
+.contact-sec {
+  text-align: center; padding: 9rem 3.5rem 7rem;
+}
+.contact-head {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 6.5vw, 6rem);
+  font-weight: 300; line-height: 1.1; letter-spacing: -.02em;
+  margin-bottom: 1.6rem;
+}
+.contact-head em { font-style: italic; color: var(--rose); }
+.contact-sub { font-size: 1rem; color: var(--muted); max-width: 380px; margin: 0 auto 2.8rem; line-height: 1.7; }
+.contact-email {
+  display: inline-block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; color: var(--text); text-decoration: none;
+  padding-bottom: .3rem; border-bottom: 1px solid var(--text);
+  transition: color .3s, border-color .3s; margin-bottom: 3rem;
+}
+.contact-email:hover { color: var(--sage); border-color: var(--sage); }
+.socials { display: flex; justify-content: center; gap: 2.2rem; list-style: none; }
+.socials a {
+  font-size: .78rem; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color .3s;
+}
+.socials a:hover { color: var(--text); }
+
+@media (max-width: 900px) {
+  .contact-sec { padding: 5rem 1.8rem; }
+}

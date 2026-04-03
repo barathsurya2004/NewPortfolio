@@ -1,0 +1,39 @@
+#cur { 
+  position: fixed; 
+  width: 10px; 
+  height: 10px; 
+  background: var(--text); 
+  border-radius: 50%; 
+  pointer-events: none; 
+  z-index: 9999; 
+  top: 0;
+  left: 0;
+  margin-top: -5px;
+  margin-left: -5px;
+  transition: width .3s, height .3s, background .3s; 
+}
+#cur-ring { 
+  position: fixed; 
+  width: 34px; 
+  height: 34px; 
+  border: 1.5px solid rgba(40,37,31,0.35); 
+  border-radius: 50%; 
+  pointer-events: none; 
+  z-index: 9998; 
+  top: 0;
+  left: 0;
+  margin-top: -17px;
+  margin-left: -17px;
+  transition: width .3s, height .3s, border-color .3s, opacity .3s; 
+}
+body.hov #cur { 
+  width: 7px; 
+  height: 7px; 
+  background: var(--sage); 
+}
+body.hov #cur-ring { 
+  width: 50px; 
+  height: 50px; 
+  border-color: var(--sage); 
+  opacity: 0.4; 
+}
