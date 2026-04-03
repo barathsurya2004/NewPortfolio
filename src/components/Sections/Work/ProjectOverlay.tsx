@@ -21,6 +21,7 @@ const ProjectOverlay: React.FC<ProjectOverlayProps> = ({ projects, activeIdx, cl
   const blurLayerRef = useRef<HTMLDivElement>(null);
   const splitRef = useRef<HTMLDivElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
   
   const isAnimating = useRef(false);
 
@@ -29,19 +30,13 @@ const ProjectOverlay: React.FC<ProjectOverlayProps> = ({ projects, activeIdx, cl
       setCurrentIdx(activeIdx);
       setIsVisible(true);
       document.body.classList.add('overlay-open');
-    } else {
-      const timer = setTimeout(() => {
-        setIsVisible(false);
-        document.body.classList.remove('overlay-open');
-      }, 1200); // Increased buffer for exit animation
-      return () => clearTimeout(timer);
     }
   }, [activeIdx]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (activeIdx === null) return;
-      if (e.key === 'Escape') onClose();
+      if (activeIdx === null || isAnimating.current) return;
+      if (e.key === 'Escape') handleClose();
       if (e.key === 'ArrowRight') switchProject(1);
       if (e.key === 'ArrowLeft') switchProject(-1);
     };
@@ -51,7 +46,6 @@ const ProjectOverlay: React.FC<ProjectOverlayProps> = ({ projects, activeIdx, cl
   }, [activeIdx, currentIdx]);
 
   useGSAP(() => {
-    // Crucial check: only animate if we have valid refs and are in a transition state
     if (!overlayRef.current || !rippleRef.current || !floodRef.current || !blurLayerRef.current || !splitRef.current) return;
 
     if (activeIdx !== null) {
@@ -86,17 +80,50 @@ const ProjectOverlay: React.FC<ProjectOverlayProps> = ({ projects, activeIdx, cl
           { opacity: 1, x: 0, duration: 0.6, stagger: 0.08, ease: "power2.out" }
         );
       }
-    } else if (isVisible) {
-      // Exit animations
-      const tl = gsap.timeline();
-      tl.to(splitRef.current, { opacity: 0, duration: 0.4 });
-      tl.to([floodRef.current, blurLayerRef.current], {
-        clipPath: 'circle(0% at var(--ox) var(--oy))',
-        duration: 0.8,
-        ease: "power3.inOut"
-      }, "-=0.2");
     }
   }, { dependencies: [activeIdx], scope: overlayRef });
+
+  const handleClose = () => {
+    if (isAnimating.current || !overlayRef.current || !closeBtnRef.current || !splitRef.current || !floodRef.current || !blurLayerRef.current) return;
+    isAnimating.current = true;
+
+    // 1. Get Close Button Center
+    const rect = closeBtnRef.current.getBoundingClientRect();
+    const closeX = rect.left + (rect.width / 2);
+    const closeY = rect.top + (rect.height / 2);
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setIsVisible(false);
+        document.body.classList.remove('overlay-open');
+        isAnimating.current = false;
+        onClose();
+      }
+    });
+
+    // 2. Fade out text
+    tl.to(splitRef.current, { 
+      opacity: 0, 
+      duration: 0.4, 
+      ease: "power2.in" 
+    });
+
+    // 3. Move origin to Close Button (Invisible to user as circle is 150%)
+    tl.add(() => {
+      gsap.set(overlayRef.current, {
+        '--ox': `${closeX}px`,
+        '--oy': `${closeY}px`
+      } as any);
+    });
+
+    // 4. "Suck" back into the button
+    tl.to([floodRef.current, blurLayerRef.current], {
+      clipPath: 'circle(0% at var(--ox) var(--oy))',
+      duration: 0.9,
+      ease: "power3.inOut",
+      stagger: 0.05
+    }, "-=0.1");
+  };
 
   const switchProject = (dir: number) => {
     if (isAnimating.current || !splitRef.current || !overlayRef.current) return;
@@ -110,7 +137,6 @@ const ProjectOverlay: React.FC<ProjectOverlayProps> = ({ projects, activeIdx, cl
       onComplete: () => {
         setCurrentIdx(nextIdx);
         
-        // Use a small timeout to ensure React has rendered the new content
         setTimeout(() => {
           if (!splitRef.current) return;
           
@@ -159,7 +185,7 @@ const ProjectOverlay: React.FC<ProjectOverlayProps> = ({ projects, activeIdx, cl
 
         <div className="prj-right">
           <div className="prj-accent-line" style={{ backgroundColor: data.color }}></div>
-          <button className="prj-close" onClick={onClose}>
+          <button className="prj-close" ref={closeBtnRef} onClick={handleClose}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M18 6L6 18M6 6l12 12"/>
             </svg>
