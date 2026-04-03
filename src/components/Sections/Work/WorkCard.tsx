@@ -9,11 +9,11 @@ interface WorkCardProps {
   year: string;
   imgClass: string;
   delay?: string;
-  onClick: (ref: React.RefObject<HTMLAnchorElement>) => void;
+  onClick: (e: React.MouseEvent) => void;
 }
 
 const WorkCard: React.FC<WorkCardProps> = ({ type, name, year, imgClass, delay, onClick }) => {
-  const cardRef = useRef<HTMLAnchorElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     if (!cardRef.current) return;
@@ -56,14 +56,11 @@ const WorkCard: React.FC<WorkCardProps> = ({ type, name, year, imgClass, delay, 
   }, { scope: cardRef });
 
   return (
-    <a 
+    <div 
       className={`wcard rv ${delay || ''}`} 
-      href="#" 
       ref={cardRef}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick(cardRef);
-      }}
+      onClick={onClick}
+      style={{ cursor: 'pointer' }}
     >
       <div className="wcard-img">
         <div className={`wcard-img-fill ${imgClass}`}></div>
@@ -78,7 +75,7 @@ const WorkCard: React.FC<WorkCardProps> = ({ type, name, year, imgClass, delay, 
           <div className="wcard-arr">→</div>
         </div>
       </div>
-    </a>
+    </div>
   );
 };
 

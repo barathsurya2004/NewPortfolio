@@ -14,7 +14,6 @@ const Marquee: React.FC = () => {
     if (!trackRef.current) return;
 
     const track = trackRef.current;
-    const items = gsap.utils.toArray('.m-item', track);
     
     // Total width of one set of items
     const trackWidth = track.scrollWidth / 2;
