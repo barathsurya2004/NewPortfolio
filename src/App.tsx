@@ -8,6 +8,7 @@ import Process from './components/Sections/Process/Process';
 import Contact from './components/Sections/Contact';
 import Footer from './components/Layout/Footer';
 import CustomCursor from './components/UI/CustomCursor';
+import Loader from './components/UI/Loader';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import './styles/variables.css';
 import './styles/glass.css';
@@ -18,6 +19,7 @@ const App: React.FC = () => {
 
   return (
     <>
+      <Loader />
       <CustomCursor />
       <Navbar />
       <main>
