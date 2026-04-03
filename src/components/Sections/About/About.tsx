@@ -30,9 +30,9 @@ const About: React.FC = () => {
       <h2 className="sec-head rv">A bit about <em>me</em></h2>
 
       <div className="about-inner">
-        <div className="rv">
+        <div className="rv about-image-col">
           <AboutSlider />
-          <div className="about-details-tag" style={{ marginTop: '1.5rem' }}>
+          <div className="about-details-tag" style={{ marginTop: '2rem' }}>
             <strong>Barath Surya M.</strong>
             <span style={{ fontSize: '.75rem', color: 'var(--muted)' }}>Software Engineer & Electrical Student</span>
           </div>

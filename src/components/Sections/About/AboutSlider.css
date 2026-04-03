@@ -1,11 +1,12 @@
 .slider-container {
   position: relative;
   width: 100%;
-  max-width: 360px;
+  max-width: 480px;
   aspect-ratio: 3/4;
-  border-radius: 26px;
+  border-radius: 32px;
   overflow: hidden;
   user-select: none;
+  box-shadow: 0 30px 60px rgba(40, 37, 31, 0.1);
 }
 
 .layer {
