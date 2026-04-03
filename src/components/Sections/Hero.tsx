@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import HeroCanvas from "./Hero/HeroCanvas";
 import "./Hero.css";
 
 const Hero: React.FC = () => {
@@ -59,13 +58,61 @@ const Hero: React.FC = () => {
           ease: "sine.inOut",
         },
       );
+
+      // High-performance blob animation using GSAP
+      // Animating transform is much better than animating top/left/filter
+      gsap.to(".b1", {
+        x: "20%",
+        y: "15%",
+        duration: 20,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".b2", {
+        x: "-15%",
+        y: "20%",
+        duration: 25,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".b3", {
+        x: "10%",
+        y: "-20%",
+        duration: 18,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      // Subtle mouse parallax for the blobs
+      const handleMouseMove = (e: MouseEvent) => {
+        const { clientX, clientY } = e;
+        const xPos = (clientX / window.innerWidth - 0.5) * 40;
+        const yPos = (clientY / window.innerHeight - 0.5) * 40;
+
+        gsap.to(".blobs", {
+          x: xPos,
+          y: yPos,
+          duration: 2,
+          ease: "power2.out"
+        });
+      };
+
+      window.addEventListener("mousemove", handleMouseMove);
+      return () => window.removeEventListener("mousemove", handleMouseMove);
     },
     { scope: heroRef },
   );
 
   return (
     <section className="hero" id="home" ref={heroRef}>
-      <HeroCanvas />
+      <div className="blobs">
+        <div className="blob b1"></div>
+        <div className="blob b2"></div>
+        <div className="blob b3"></div>
+      </div>
       <div className="hero-wm">BS</div>
 
       <div className="hero-content">
@@ -122,10 +169,7 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* <div className="scroll-hint"> */}
-      {/*   <span>Scroll</span> */}
-      {/*   <div className="scroll-line"></div> */}
-      {/* </div> */}
+
     </section>
   );
 };

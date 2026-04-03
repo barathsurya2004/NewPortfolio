@@ -1,10 +1,61 @@
 .wgrid {
   display: grid;
-  grid-template-columns: 1.45fr 1fr;
-  grid-template-rows: auto auto;
+  /* Use a 12-column grid for maximum flexibility in sizing */
+  grid-template-columns: repeat(12, 1fr);
+  /* 'dense' packing fills in any awkward gaps automatically */
+  grid-auto-flow: dense;
   gap: 1.4rem;
 }
 
+/* Ensure the wrapper allows the inner card to stretch */
+.card-slot {
+  display: flex;
+  width: 100%;
+}
+
+/* THE COLLAGE PATTERN 
+   Tweak these spans to change how "random" it looks. 
+   12 columns total per row.
+*/
+
+/* 1st card: Large feature (Wide & Tall) */
+.card-slot:nth-child(5n + 1) {
+  grid-column: span 7;
+  grid-row: span 2;
+}
+
+/* 2nd card: Smaller top right */
+.card-slot:nth-child(5n + 2) {
+  grid-column: span 5;
+  grid-row: span 1;
+}
+
+/* 3rd card: Smaller bottom right */
+.card-slot:nth-child(5n + 3) {
+  grid-column: span 5;
+  grid-row: span 1;
+}
+
+/* 4th card: Medium left */
+.card-slot:nth-child(5n + 4) {
+  grid-column: span 5;
+  grid-row: span 1;
+}
+
+/* 5th card: Wide right */
+.card-slot:nth-child(5n + 5) {
+  grid-column: span 7;
+  grid-row: span 1;
+}
+
+/* Mobile Fallback: Stack everything neatly */
 @media (max-width: 900px) {
-  .wgrid { grid-template-columns: 1fr; }
+  .wgrid { 
+    grid-template-columns: 1fr; 
+  }
+  /* Force all cards to span the full width on mobile */
+  .card-slot:nth-child(n) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
 }
